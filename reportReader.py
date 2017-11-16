@@ -1,5 +1,6 @@
 import os
 import sys
+import math
 
 import plotly as py
 import plotly.graph_objs as go
@@ -39,9 +40,6 @@ def assignDict(inputdict,nrtick = 6):
     vrange = [min(values),max(values)]
     return dict(range = vrange, label = label[0], values = values)
 
-
-
-
 reportFile = open(reportPath,"r")
 reportLines = reportFile.readlines()
 #extract data
@@ -59,20 +57,17 @@ DF = getValues(reportLines,"DF3")
 sDA = getValues(reportLines,"sDA300lux")
 reportFile.close()
 
-
-
 data = [
     go.Parcoords(
         line = dict(color = WWR["WWR"],
                     colorscale = 'Jet',
                     showscale = True,
                     reversescale = False,
-                    cmin = 15,
-                    cmax = 60),
+                    ),
         dimensions = list([
             assignDict(WWR),
-            #assignDict(ShadingActive),
-            #assignDict(TotalRadWindow),
+            assignDict(ShadingActive),
+            assignDict(TotalRadWindow),
             assignDict(TotalRadEnteredWindow),
             assignDict(TotalIntGain),
             assignDict(TotalHeating),
