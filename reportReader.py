@@ -27,10 +27,19 @@ def getValues(reportLines,tagname):
     for line in reportLines[1:]:
         line = line.split()
         try:
-            Values[tagname].append(float(line[ValueID]))
+            Values[tagname].append(round(float(line[ValueID]),0))
         except (ValueError,TypeError):
             Values[tagname].append(line[ValueID])
     return Values
+
+def assignDict(inputdict,nrtick = 6):
+    """Generating dictionary for plotting"""
+    label = list(inputdict.keys())
+    values = inputdict[label[0]]
+    vrange = [min(values),max(values)]
+    return dict(range = vrange, label = label[0], values = values)
+
+
 
 
 reportFile = open(reportPath,"r")
@@ -44,26 +53,33 @@ TotalRadWindow = getValues(reportLines,"TotalRadiationOnWindow")
 TotalRadEnteredWindow = getValues(reportLines,"TotalRadiationThroughWindow")
 TotalIntGain = getValues(reportLines,"TotalInternalGain")
 TotalHeating = getValues(reportLines,"TotalHeating")
-TotaCooling = getValues(reportLines,"TotalCooling")
+TotalCooling = getValues(reportLines,"TotalCooling")
 TotalEnergy = getValues(reportLines,"TotalEnergy")
 DF = getValues(reportLines,"DF3")
 sDA = getValues(reportLines,"sDA300lux")
 reportFile.close()
 
+
+
 data = [
     go.Parcoords(
         line = dict(color = WWR["WWR"],
-        colorscale = [[15,"#439ACA"],[30,"#E9743F"],[40,"#36C2A6"],[45,"#FEDE86"],[50,"#EC696D"],[55,"#2C0260"],[60,"#6E07F2"]]),
+                    colorscale = 'Jet',
+                    showscale = True,
+                    reversescale = False,
+                    cmin = 15,
+                    cmax = 60),
         dimensions = list([
-            dict(range = [0,100],
-                 label = "WWR",
-                 values = WWR["WWR"]),
-            dict(range = [0,100],
-                 label = "DF",
-                 values = DF["DF3"]),
-            dict(range = [0,100],
-                 label = "sDA",
-                 values = sDA["sDA300lux"])
+            assignDict(WWR),
+            #assignDict(ShadingActive),
+            #assignDict(TotalRadWindow),
+            assignDict(TotalRadEnteredWindow),
+            assignDict(TotalIntGain),
+            assignDict(TotalHeating),
+            assignDict(TotalCooling),
+            assignDict(TotalEnergy),
+            assignDict(DF),
+            assignDict(sDA)
         ])
     )
 ]
