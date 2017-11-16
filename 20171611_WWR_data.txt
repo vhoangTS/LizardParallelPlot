@@ -1,4 +1,4 @@
-VARIANT	Orientation	Window to Wall Ratio	Shading Active	Incident Total Radiation on Window	Total radiation transmitted through Window	Total internal gain	Total heating demand	Total cooling demand	Total Energy Demand	DF (>3%)	sDA (300lux, 50%)
+VARIANT	Orientation	WWR	ShadingActive	TotalRadiationOnWindow	TotalRadiationThroughWindow	TotalInternalGain	TotalHeating	TotalCooling	TotalEnergyDemand	DF3	sDA300lux
 E_15	East	15	1341	2230.8	241.2	40.8	2.1	13.2	15.3	10	11
 E_30	East	30	1341	4461.7	482.4	29.6	5.7	9.1	14.8	28	39
 E_40	East	40	1341	5948.9	643.2	26.4	7.7	9.4	17.1	43	57
