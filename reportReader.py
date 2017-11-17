@@ -1,7 +1,5 @@
 import os
 import sys
-import math
-
 import plotly as py
 import plotly.graph_objs as go
 
@@ -40,9 +38,37 @@ def assignDict(inputdict,nrtick = 6):
     vrange = [min(values),max(values)]
     return dict(range = vrange, label = label[0], values = values)
 
+def parallelPlot():
+    """Plot parallel graph for selected variants"""
+    data = [
+        go.Parcoords(
+            line = dict(color = WWR["WWR"],
+                        colorscale = 'Jet',
+                        showscale = True,
+                        reversescale = False,
+                        ),
+            dimensions = list([
+                assignDict(WWR),
+                assignDict(ShadingActive),
+                assignDict(TotalRadWindow),
+                assignDict(TotalRadEnteredWindow),
+                assignDict(TotalIntGain),
+                assignDict(TotalHeating),
+                assignDict(TotalCooling),
+                assignDict(TotalEnergy),
+                assignDict(DF),
+                assignDict(sDA)
+            ])
+        )
+    ]
+    layout = go.Layout() #plot_bgcolor = '#E5E5E5', paper_bgcolor = '#E5E5E5'
+
+    fig = go.Figure(data = data, layout = layout)
+    py.offline.plot(fig,filename = "parallel.html")
+
 reportFile = open(reportPath,"r")
 reportLines = reportFile.readlines()
-#extract data
+#extract all data
 variants = getValues(reportLines,"VARIANT")
 orientation = getValues(reportLines,"Orientation")
 WWR = getValues(reportLines,"WWR")
@@ -57,30 +83,5 @@ DF = getValues(reportLines,"DF3")
 sDA = getValues(reportLines,"sDA300lux")
 reportFile.close()
 
-data = [
-    go.Parcoords(
-        line = dict(color = WWR["WWR"],
-                    colorscale = 'Jet',
-                    showscale = True,
-                    reversescale = False,
-                    ),
-        dimensions = list([
-            assignDict(WWR),
-            assignDict(ShadingActive),
-            assignDict(TotalRadWindow),
-            assignDict(TotalRadEnteredWindow),
-            assignDict(TotalIntGain),
-            assignDict(TotalHeating),
-            assignDict(TotalCooling),
-            assignDict(TotalEnergy),
-            assignDict(DF),
-            assignDict(sDA)
-        ])
-    )
-]
-
-layout = go.Layout() #plot_bgcolor = '#E5E5E5', paper_bgcolor = '#E5E5E5'
-
-fig = go.Figure(data = data, layout = layout)
-py.offline.plot(fig,filename = "parallel.html")
-
+#here plotting start for selected variants
+parallelPlot()
