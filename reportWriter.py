@@ -59,10 +59,6 @@ def getsDA(illfile):
     sDF = illCAL(DFline,3)
     return sDA,sDF
 
-###Start here
-modelPath = "p:\\Giessen_Wohnen_am_alten_Flughafen_170128\\Sim_Thermal\\20171116_WWR_study\\Model\\"
-reportfname = "VARIANT_REPORT.txt"
-
 def ReadAndWriteReport(modelPath,reportfname):
     #extract all file paths
     vnames, vpath = getVariantspath(modelPath,reportfname)
@@ -77,8 +73,8 @@ def ReadAndWriteReport(modelPath,reportfname):
         reportf.write("%s\t"%(va.split("_")[0]))
         reportf.write("%s\t"%(va.split("_")[1]))
         reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"SHD_active"),0)))
-        reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"IT_")/1000,0)))
-        reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"QSOLTR_")/1000,0)))
+        reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"IT_")/3600,0)))
+        reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"QSOLTR_")/3600,0)))
         reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"Q_intgain_")/1000,0)))
         reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"Q_tot_ht_")/1000,0)))
         reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"Q_tot_cl_")/1000,0)))
@@ -87,5 +83,3 @@ def ReadAndWriteReport(modelPath,reportfname):
         reportf.write("%s\t"%(sdf))
         reportf.write("%s\n"%(sda))
     reportf.close()
-
-ReadAndWriteReport(modelPath,reportfname)
