@@ -65,7 +65,7 @@ def parallelPlot():
             ])
         )
     ]
-    layout = go.Layout() #plot_bgcolor = '#E5E5E5', paper_bgcolor = '#E5E5E5'
+    layout = go.Layout(width = 1880,height = 888) #plot_bgcolor = '#E5E5E5', paper_bgcolor = '#E5E5E5'
 
     fig = go.Figure(data = data, layout = layout)
     py.offline.plot(fig,filename = "parallel.html")
