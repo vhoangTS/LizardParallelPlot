@@ -72,13 +72,13 @@ def ReadAndWriteReport(modelPath,reportfname):
         reportf.write("%s\t"%(va))
         reportf.write("%s\t"%(va.split("_")[0]))
         reportf.write("%s\t"%(va.split("_")[1]))
-        reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"SHD_active"),0)))
-        reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"IT_")/3600,0)))
-        reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"QSOLTR_")/3600,0)))
-        reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"Q_intgain_")/1000,0)))
-        reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"Q_tot_ht_")/1000,0)))
-        reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"Q_tot_cl_")/1000,0)))
-        reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"Q_tot_ht_")/1000 + getSUMresults(addOutput[vid],"Q_tot_cl_")/1000,0)))
+        reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"SHD_active"),0))) #hours
+        reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"IT_")/3600,0))) #kW
+        reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"QSOLTR_")/3600,0))) #kW
+        reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"Q_intgain_")/1000,0))) #kW
+        reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"Q_tot_ht_")/1000,0))) #kW
+        reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"Q_tot_cl_")/1000,0))) #kW
+        reportf.write("%s\t"%(round(getSUMresults(addOutput[vid],"Q_tot_ht_")/1000 + getSUMresults(addOutput[vid],"Q_tot_cl_")/1000,0))) #kW
         sda,sdf = getsDA(illfile[vid])
         reportf.write("%s\t"%(sdf))
         reportf.write("%s\n"%(sda))
