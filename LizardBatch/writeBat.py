@@ -1,6 +1,7 @@
 import os
+from subprocess import Popen
 
-modelPath = "p:\\Giessen_Wohnen_am_alten_Flughafen_170128\\Sim_Thermal\\20171116_WWR_study\\Model\\"
+modelPath = "p:\\Giessen_Wohnen_am_alten_Flughafen_170128\\Sim_Thermal\\20171116_WWR_study\\Model\\_test_batch\\"
 trnsysPath ="w:\\Trnsys18\\"
 batchfile = "RUNALL.bat"
 
@@ -8,6 +9,7 @@ batchfile = "RUNALL.bat"
 runRAD = True
 runVFM = True
 runSHM = True
+runBatch = True
 
 def getVariants(modelPath):
     """get file variant names and respectively the b18,d18 file paths"""
@@ -42,3 +44,7 @@ trnBUILD,trnRAD,trnEXE = getTRNSYS(trnsysPath)
 
 #writing batch file for all variants
 writeBat(b18file,d18file,runRAD,runVFM,runSHM)
+#run batch
+if runBatch:
+    poping = Popen(batchfile,cwd=modelPath)
+    stdout,stderr = poping.communicate()
